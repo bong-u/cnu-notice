@@ -1,0 +1,5 @@
+.venv/
+token.json
+record.txt
+__pycache__/
+*.log
