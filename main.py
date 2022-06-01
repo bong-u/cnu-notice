@@ -16,7 +16,7 @@ class Crawler:
         # load record
         with open(self.__FILE_PATH, 'r') as f:
             self.__record = f.read().split(' ')
-        
+    
         # load slack token
         with open('token.json', 'r') as f:
             self.__SLACK_TOKEN = json.load(f)['token']
