@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import json
+from datetime import datetime
 
 class Crawler:
     __record = []
@@ -60,13 +61,13 @@ class Crawler:
         
         for item in data:
             msg = {
-                'channel': 'C03HU2GJRAQ',
+                'channel': 'C03JFC0HNC8',
                 'attachments': [
                     {
                         'mrkdwn_in': ['text'],
                         'color': '#019DAA',
                         'title': item['text'],
-                        'text': '<{}|더보기>'.format(self.__URL_BASE + item['href']),
+                        'text': '<{}|더 보기>'.format(self.__URL_BASE + item['href']),
                         'footer': '충남대학교 컴퓨터융합학부 ' + item['type'],
                         'footer_icon': 'https://play-lh.googleusercontent.com/MRgAxDb-1HaJcTm1Ew0dj8_9qXOArbYfmceQG0wjkTEzJZI3snLOqAXMNjoU5ckN6ds4=w240-h480-rw'
                     }
@@ -92,12 +93,14 @@ class Crawler:
         status = json.loads(res.text)['ok']
 
         if status:
-            print ('Message sending success - ', message['attachments']['title'])
+            print ('Message sending success - ', message['attachments'][0]['title'])
         else:
             print ('Failed to send message.')
             print (json.loads(res.text))
     
 if __name__ == '__main__':
+    print (datetime.now().strftime('%Y-%m-%d %H:%M:%S') + ' | project running...')
+
     crawler = Crawler()
     data = crawler.crawl()
     messages = crawler.serialize(data)
