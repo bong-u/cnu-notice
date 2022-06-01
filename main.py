@@ -92,7 +92,7 @@ class Crawler:
         status = json.loads(res.text)['ok']
 
         if status:
-            print ('Message sending success.')
+            print ('Message sending success - ', message['attachments']['title'])
         else:
             print ('Failed to send message.')
             print (json.loads(res.text))
