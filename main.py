@@ -32,7 +32,7 @@ class Crawler:
         data = []
         new_record = ['','']
         TYPE = ['학사공지', '일반소식']
-        res = requests.get (self.__URL_BASE)
+        res = requests.get (self.__URL_BASE, headers={'User-Agent':'Mozilla/5.0'})
 
         soup = BeautifulSoup(res.text, 'html.parser')
 
