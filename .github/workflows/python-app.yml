@@ -9,14 +9,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+        - shell: bash
+          run: |
+            echo 1 10 > recent_post_id.txt
         - name: upload
           uses: actions/upload-artifact@v3
           with:
             name: notice_artifact
             path: recent_post_id.txt
-        - shell: bash
-          run: |
-            echo 1 10 > recent_post_id.txt
         
   job2:
     runs-on: ubuntu-latest
