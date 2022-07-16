@@ -20,10 +20,10 @@ jobs:
         
   job2:
     runs-on: ubuntu-latest
+    needs : job1
     
     steps:
         - name: download
-          needs : job1
           uses: actions/download-artifact@v1
           with:
             name: notice_artifact
