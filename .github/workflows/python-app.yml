@@ -25,4 +25,4 @@ jobs:
             name: homework
         - shell: bash
           run: |
-            cat homework/recent_post_id.txt
+            cat recent_post_id.txt
