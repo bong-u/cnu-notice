@@ -11,7 +11,7 @@ jobs:
     steps:
         - shell: bash
           run: |
-            echo 1 10 > math-homework.txt
+            echo 1 10 > recent_post_id.txt
         - name: upload
           uses: actions/upload-artifact@v1
           with:
