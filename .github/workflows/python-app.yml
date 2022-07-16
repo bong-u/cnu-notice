@@ -5,24 +5,27 @@ on: [push]
 #   - cron: "0 0 * * *"
 
 jobs:
-  build:
+  job1:
     runs-on: ubuntu-latest
 
     steps:
-        #- shell: bash
-        #  run: |
-        #    echo 1 10 > recent_post_id.txt
+        - name: upload
+          uses: actions/upload-artifact@v1
+          with:
+            name: notice_artifact
+            path: recent_post_id.txt
+        - shell: bash
+          run: |
+            echo 1 10 > recent_post_id.txt
         
-        #- name: upload
-        #  uses: actions/upload-artifact@v1
-        #  with:
-        #    name: homework
-        #    path: recent_post_id.txt
-            
+  job2:
+    runs-on: ubuntu-latest
+    
+    steps:
         - name: download
           uses: actions/download-artifact@v1
           with:
-            name: homework
+            name: notice_artifact
         - shell: bash
           run: |
             cat recent_post_id.txt
