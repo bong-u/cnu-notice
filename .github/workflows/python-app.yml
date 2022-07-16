@@ -23,6 +23,7 @@ jobs:
     
     steps:
         - name: download
+          needs : job1
           uses: actions/download-artifact@v1
           with:
             name: notice_artifact
