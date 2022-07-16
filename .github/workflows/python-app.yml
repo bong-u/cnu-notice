@@ -1,0 +1,19 @@
+name: send_notice_cron
+
+on: [push]
+#   schedule:
+#   - cron: "0 0 * * *"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+        - shell: bash
+          run: |
+            1 10 > math-homework.txt
+        - name: upload
+          uses: actions/upload-artifact@v1
+          with:
+            name: homework
+            path: recent_post_id.txt
