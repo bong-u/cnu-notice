@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-        - shell: bash
+        #- shell: bash
         #  run: |
         #    echo 1 10 > recent_post_id.txt
         
