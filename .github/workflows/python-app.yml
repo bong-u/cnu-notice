@@ -10,7 +10,7 @@ jobs:
 
     steps:
         - name: upload
-          uses: actions/upload-artifact@v1
+          uses: actions/upload-artifact@v3
           with:
             name: notice_artifact
             path: recent_post_id.txt
@@ -24,7 +24,7 @@ jobs:
     
     steps:
         - name: download
-          uses: actions/download-artifact@v1
+          uses: actions/download-artifact@v3
           with:
             name: notice_artifact
         - shell: bash
