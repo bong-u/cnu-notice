@@ -1,8 +1,8 @@
 name: send_notice_cron
 
-on:
-  schedule:
-    - cron: "0 0 * * *"
+on: [PUSH]
+#   schedule:
+#     - cron: "0 0 * * *"
 
 jobs:
   run:
