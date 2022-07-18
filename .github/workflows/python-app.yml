@@ -10,23 +10,17 @@ jobs:
 
     steps:
         - uses: actions/checkout@v3
-          with:
-            ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
-            persist-credentials: true
-            
         
         - name: Make Changes
           run: |
             echo 12 34 > recent_notice_record.txt
             
         - name: Commit files
+          env:
+            GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
           run: |
-            git config --local user.email "bongudev@gmail.com"
-            git config --local user.name "bong-u"
-            git commit -m "RECORD FILE UPDATED" -a
-        
-        - name: Push changes
-          uses: ad-m/github-push-action@master
-          with:
-            ssh: true
-            branch: ${{ github.ref }}
+            git config --global user.name 'bong-u'
+            git config --global user.email 'bongudev@gmail.com'
+            git remote set-url origin https://x-access-token:${{ GIT_TOKEN }}@github.com/${{ github.repository }}
+            git commit -am "RECORD FILE UPDATED"
+            git push
