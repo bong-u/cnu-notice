@@ -5,15 +5,20 @@ on: [push]
 #   - cron: "0 0 * * *"
 
 jobs:
-  job:
+  run:
     runs-on: ubuntu-latest
 
     steps:
         - uses: actions/checkout@v3
         
-        - name: Make Changes
+        - name: Install dependencies
           run: |
-            echo 12 34 > recent_notice_record.txt
+            python -m pip install --upgrade pip
+            pip install requests beautifulsoup4
+            
+        - name: Run python script
+          run: |
+            python main.py
             
         - name: Commit files
           run: |
