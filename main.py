@@ -5,7 +5,7 @@ from datetime import datetime
 
 class Crawler:
     __record = []
-    __FILE_PATH = 'record.txt'
+    __FILE_PATH = 'recent_notice_record.txt'
     __SLACK_TOKEN = ''
     __URL_BASE = 'https://computer.cnu.ac.kr'
 
