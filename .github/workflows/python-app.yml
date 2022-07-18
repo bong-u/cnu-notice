@@ -17,6 +17,8 @@ jobs:
             pip install requests beautifulsoup4
             
         - name: Run python script
+          env:
+            SLACK_API: ${{ secrets.SLACK_API }}
           run: |
             python main.py
             
