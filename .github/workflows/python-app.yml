@@ -16,11 +16,9 @@ jobs:
             echo 12 34 > recent_notice_record.txt
             
         - name: Commit files
-          env:
-            GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
           run: |
             git config --global user.name 'bong-u'
             git config --global user.email 'bongudev@gmail.com'
-            git remote set-url origin https://x-access-token:${{ GIT_TOKEN }}@github.com/${{ github.repository }}
+            git remote set-url origin https://x-access-token:${{ secrets.GIT_TOKEN }}@github.com/${{ github.repository }}
             git commit -am "RECORD FILE UPDATED"
             git push
