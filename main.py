@@ -6,7 +6,7 @@ from datetime import datetime
 class Crawler:
     __record = []
     __FILE_PATH = 'recent_notice_record.txt'
-    __SLACK_TOKEN = ''
+    __SLACK_TOKEN = os.getenv('SLACK_TOKEN')
     __URL_BASE = 'https://computer.cnu.ac.kr'
 
     def __init__(self):
@@ -17,10 +17,6 @@ class Crawler:
         # load record
         with open(self.__FILE_PATH, 'r') as f:
             self.__record = f.read().split(' ')
-    
-        # load slack token
-        with open('token.json', 'r') as f:
-            self.__SLACK_TOKEN = json.load(f)['token']
     
     def __writeFile(self, new_record):
 
