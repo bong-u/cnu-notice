@@ -1,6 +1,6 @@
 name: send_notice_cron
 
-on: [PUSH]
+on: [ push ]
 #   schedule:
 #     - cron: "0 0 * * *"
 
