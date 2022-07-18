@@ -14,9 +14,10 @@ jobs:
             ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
             persist-credentials: true
             
-#         - name: Commit files
-#           run: |
-#             ...
+        
+        - name: Make Changes
+          run: |
+            echo 12 34 > recent_notice_record.txt
             
         - name: Commit files
           run: |
