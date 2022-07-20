@@ -22,10 +22,15 @@ jobs:
           run: |
             python main.py
             
+        - name : Get current date
+          id: date
+          run : |
+            echo "::set-output name=date::$(date +'%Y-%m-%d')"
+            
         - name: Commit files
           run: |
             git config --global user.name 'bong-u'
             git config --global user.email 'bongudev@gmail.com'
             git remote set-url origin https://x-access-token:${{ secrets.GIT_TOKEN }}@github.com/${{ github.repository }}
-            git commit -am "UPDATED AT ${{ github.event.repository.updated_at}}" || true
+            git commit -am "UPDATED AT ${{ steps.date.outputs.date }}" || true
             git push
