@@ -1,4 +1,4 @@
-name: send_notice_cron
+name: send_cse_notice_cron
 
 on:
   schedule:
