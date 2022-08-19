@@ -5,7 +5,7 @@ from datetime import datetime
 
 class Crawler:
     __record = []
-    __FILE_PATH = 'recent_notice_record.txt'
+    __FILE_NAME = 'recent_notice_record.txt'
     __SLACK_TOKEN = os.getenv('SLACK_TOKEN')
     __URL_BASE = 'https://computer.cnu.ac.kr'
 
@@ -15,12 +15,12 @@ class Crawler:
     def __readFile(self):
         
         # load record
-        with open(self.__FILE_PATH, 'r') as f:
+        with open(self.__FILE_NAME, 'r') as f:
             self.__record = f.read().split(' ')
     
     def __writeFile(self, new_record):
 
-        with open(self.__FILE_PATH, 'w') as f:
+        with open(self.__FILE_NAME, 'w') as f:
             f.write(new_record[0] + ' ' + new_record[1])
     
     def crawl(self):
@@ -101,5 +101,5 @@ if __name__ == '__main__':
     data = crawler.crawl()
     messages = crawler.serialize(data)
     
-    for msg in messages:
-        crawler.send(msg)
+    for message in messages:
+        crawler.send(message)
