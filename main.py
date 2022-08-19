@@ -64,8 +64,7 @@ class Crawler:
                         'color': '#019DAA',
                         'title': item['text'],
                         'text': '<{}|더 보기>'.format(self.__URL_BASE + item['href']),
-                        'footer': '충남대학교 컴퓨터융합학부 ' + item['type'],
-                        'footer_icon': 'https://play-lh.googleusercontent.com/MRgAxDb-1HaJcTm1Ew0dj8_9qXOArbYfmceQG0wjkTEzJZI3snLOqAXMNjoU5ckN6ds4=w240-h480-rw'
+                        'footer': '충남대학교 컴퓨터융합학부 ' + item['type']
                     }
                 ]
             }
