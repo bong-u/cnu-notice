@@ -32,5 +32,5 @@ jobs:
             git config --global user.name 'bong-u'
             git config --global user.email 'bongudev@gmail.com'
             git remote set-url origin https://x-access-token:${{ secrets.GIT_TOKEN }}@github.com/${{ github.repository }}
-            git commit -am "UPDATED AT ${{ steps.date.outputs.date }}" || true
+            git commit -am "Update [${{ steps.date.outputs.date }}]" || true
             git push
