@@ -39,7 +39,8 @@ class MainModule(DBModule):
         message_list = self.serialize(post_list)
 
         self.update(recent_post)
-
+        self.send(message_list)
+    
     def crawl(self, type, recent_post):
 
         post_list = []
