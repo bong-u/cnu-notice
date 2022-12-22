@@ -1,8 +1,6 @@
-name: send_cse_notice_cron
+name: cse_notice_crawler
 
-on:
-  schedule:
-    - cron: "0 0 * * *"
+on: [push]
 
 jobs:
   run:
@@ -12,25 +10,17 @@ jobs:
         - uses: actions/checkout@v3
         
         - name: Install dependencies
-          run: |
+          run:
             python -m pip install --upgrade pip
             pip install -r requirements.txt
+        
+        - name: Create gspread_auth.json
+          uses: jsdaniell/create-json@1.1.2
+          with: 
+            name: "gspread_auth.json"
+            json: ${{ secrets.GSPREAD_AUTH }}
             
         - name: Run python script
           env:
             SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
-          run: |
-            python main.py
-            
-        - name : Get current date
-          id: date
-          run : |
-            echo "::set-output name=date::$(date +'%Y-%m-%d')"
-            
-        - name: Commit files
-          run: |
-            git config --global user.name 'bong-u'
-            git config --global user.email 'bongudev@gmail.com'
-            git remote set-url origin https://x-access-token:${{ secrets.GIT_TOKEN }}@github.com/${{ github.repository }}
-            git commit -am "Update [${{ steps.date.outputs.date }}]" || true
-            git push
+          run: python main.py
