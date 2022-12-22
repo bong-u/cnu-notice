@@ -1,6 +1,9 @@
 name: cse_notice_crawler
 
-on: [push]
+on:
+  schedule:
+  # Every 12:00 KST, 18:00 KST 
+    - cron: "0 3,9 * * *"
 
 jobs:
   run:
