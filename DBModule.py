@@ -2,7 +2,7 @@ import gspread
 
 class DBModule:
 
-    __gc = gspread.service_account(filename='cse-notice-api-c962bfa795cd.json')
+    __gc = gspread.service_account(filename='gspread_auth.json')
     __sh = __gc.open("cse_notice").sheet1
     
     def read(self):
