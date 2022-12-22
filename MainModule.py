@@ -35,13 +35,10 @@ class MainModule(DBModule):
         for index, type in enumerate(['bachelor', 'notice', 'project']):
             recent_post[index], posts = self.crawl(type, recent_post[index])
             post_list += posts
-            # break
 
         message_list = self.serialize(post_list)
 
         self.update(recent_post)
-
-        # self.send(message_list[0])
 
     def crawl(self, type, recent_post):
 
@@ -112,6 +109,7 @@ class MainModule(DBModule):
         else:
             print ('Failed to send message.')
             print (json.loads(res.text))
+
 
 if __name__ == '__main__':
     MainModule()

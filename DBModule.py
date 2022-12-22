@@ -1,10 +1,9 @@
-import os, gspread
+import gspread
 
 class DBModule:
 
     __gc = gspread.service_account(filename='cse-notice-api-c962bfa795cd.json')
     __sh = __gc.open("cse_notice").sheet1
-    __data = [0, 0, 0]
     
     def read(self):
         data = [0, 0, 0]
