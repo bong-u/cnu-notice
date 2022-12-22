@@ -23,4 +23,5 @@ jobs:
         - name: Run python script
           env:
             SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
+            CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
           run: python MainModule.py
