@@ -40,24 +40,24 @@ class CseCrawler:
 
         soup = BeautifulSoup(res.text, 'html.parser')
 
-        for board in soup.select('div.content-wrap tbody'):
-            for index, notice in enumerate(board.select('tr:not(.b-top-box)')):
-                element = notice.find('a')
+        board = soup.select_one('div.content-wrap tbody')
+        for index, notice in enumerate(board.select('tr:not(.b-top-box)')):
+            element = notice.find('a')
 
-                href = element['href']
-                title = element.text.strip()
-                post_no = href.split('articleNo=')[1].split('&')[0]
+            href = element['href']
+            title = element.text.strip()
+            post_no = href.split('articleNo=')[1].split('&')[0]
 
-                if index == 0:
-                    new_recent_post = post_no
-                if post_no == self.__RECENT_POST[type['idx']]:
-                    break
+            if index == 0:
+                new_recent_post = post_no
+            if post_no == self.__RECENT_POST[type['idx']]:
+                break
 
-                self.__POST_LIST.append({
-                    'title' : title,
-                    'link' : type['url'] + href,
-                    'footer' : type['label']
-                })
+            self.__POST_LIST.append({
+                'title' : title,
+                'link' : type['url'] + href,
+                'footer' : type['label']
+            })
 
         self.__RECENT_POST[type['idx']] = new_recent_post
     
