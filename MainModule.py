@@ -12,15 +12,14 @@ class MainModule(DBModule):
     def __init__(self):
         super()
 
-        # recent_post = self.read()
-        recent_post = ['316740', '316519', '316507']
 
         print (datetime.now().strftime('%Y-%m-%d %H:%M:%S') + ' | project running...')
 
+        recent_post = self.read()
         post_list = []
-
         cse_crawler = CseCrawler(recent_post)
         post_list = cse_crawler.get_post_list()
+
 
         message_list = self.serialize(post_list)
 
