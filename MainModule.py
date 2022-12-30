@@ -1,48 +1,65 @@
 import requests
-from bs4 import BeautifulSoup
 import os, json
 from datetime import datetime
 from DBModule import DBModule
-from CseCrawler import CseCrawler
-from CnuCrawler import CnuCrawler
+from CrawlModule import CrawlModule
 
 class MainModule(DBModule):
-    __SLACK_TOKEN = os.getenv('SLACK_TOKEN')
+    __SLACK_TOKEN = os.getenv('SLAC K_TOKEN')
     __CHANNEL_ID = os.getenv('CHANNEL_ID')
+    __CSE_URL_BASE = 'https://computer.cnu.ac.kr/computer/notice/'
+    __CNU_URL_BASE = 'https://plus.cnu.ac.kr/_prog/_board'
+
+    __BOARD_INFO_LIST = [
+        {
+            'url' : __CSE_URL_BASE + 'bachelor.do',
+            'label' : '학사공지'
+        },
+        {
+            'url' : __CSE_URL_BASE + 'notice.do',
+            'label' : '일반공지'
+        },
+        {
+            'url' : __CSE_URL_BASE + 'project.do',
+            'label' : '사업단소식'
+        },
+        {
+            'url_base' : __CNU_URL_BASE,
+            'url' : __CNU_URL_BASE + '/?code=sub07_0702&site_dvs_cd=kr&menu_dvs_cd=0702'
+        }
+    ]
 
     def __init__(self):
         super(MainModule, self).__init__()
 
         print (datetime.now().strftime('%Y-%m-%d %H:%M:%S') + ' | project running...')
 
-        # crawl cse notice
-        recent_post = self.get()[0:3]
-        post_list = []
-        cse_crawler = CseCrawler(recent_post)
-        post_list = cse_crawler.get_post_list()
+        recent_post = self.getFromDB()
 
-        # crawl cnu notice
-        recent_post = self.get()[3]
         post_list = []
-        cnu_crawler = CnuCrawler(recent_post)
-        post_list = cnu_crawler.get_post_list()
+
+        recent_post[0], new_post = CrawlModule.CrawlCSE(recent_post[0], self.__BOARD_INFO_LIST[0])
+        post_list += new_post
+        recent_post[1], new_post = CrawlModule.CrawlCSE(recent_post[1], self.__BOARD_INFO_LIST[1])
+        post_list += new_post
+        recent_post[2], new_post = CrawlModule.CrawlCSE(recent_post[2], self.__BOARD_INFO_LIST[2])
+        post_list += new_post
+        recent_post[3], new_post = CrawlModule.CrawlCNU(recent_post[3], self.__BOARD_INFO_LIST[3])
+        post_list += new_post
 
         # seriallize post_list
         message_list = self.serialize(post_list)
 
-        # concat to new_recent_pos
-        
-        new_recent_pos = cse_crawler.get_recent_post()+cnu_crawler.get_recent_post()
-
         # self.update(recent_post)
 
-        for message in message_list:
-            self.send(message)
+        # for message in message_list:
+        #     self.send(message)
 
     def serialize(self, post_list):
         message_list= []
         
         for item in post_list:
+            print (item)
             message_list.append(
                 {
                     'channel': self.__CHANNEL_ID,
