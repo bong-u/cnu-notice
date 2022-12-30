@@ -4,26 +4,37 @@ import os, json
 from datetime import datetime
 from DBModule import DBModule
 from CseCrawler import CseCrawler
+from CnuCrawler import CnuCrawler
 
 class MainModule(DBModule):
     __SLACK_TOKEN = os.getenv('SLACK_TOKEN')
     __CHANNEL_ID = os.getenv('CHANNEL_ID')
 
     def __init__(self):
-        super()
-
+        super(MainModule, self).__init__()
 
         print (datetime.now().strftime('%Y-%m-%d %H:%M:%S') + ' | project running...')
 
-        recent_post = self.read()
+        # crawl cse notice
+        recent_post = self.get()[0:3]
         post_list = []
         cse_crawler = CseCrawler(recent_post)
         post_list = cse_crawler.get_post_list()
 
+        # crawl cnu notice
+        recent_post = self.get()[3]
+        post_list = []
+        cnu_crawler = CnuCrawler(recent_post)
+        post_list = cnu_crawler.get_post_list()
 
+        # seriallize post_list
         message_list = self.serialize(post_list)
 
-        self.update(recent_post)
+        # concat to new_recent_pos
+        
+        new_recent_pos = cse_crawler.get_recent_post()+cnu_crawler.get_recent_post()
+
+        # self.update(recent_post)
 
         for message in message_list:
             self.send(message)
