@@ -12,10 +12,10 @@ class DBModule:
         self.__data[2] = self.__sh.get('C2')[0][0]
         self.__data[3] = self.__sh.get('D2')[0][0]
 
-    def get(self):
+    def getFromDB(self):
         return self.__data
 
-    def update(self, new_data):
+    def updateDB(self, new_data):
         self.__sh.update_acell('A2', new_data[0])
         self.__sh.update_acell('B2', new_data[1])
         self.__sh.update_acell('C2', new_data[2])
