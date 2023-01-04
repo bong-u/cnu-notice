@@ -28,4 +28,6 @@ jobs:
           env:
             SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
             CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
+            CNU_CHANNEL_ID: ${{ CNU_CHANNEL_ID }}
+            CSE_CHANNEL_ID: ${{ CSE_CHANNEL_ID }}
           run: python MainModule.py
