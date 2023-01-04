@@ -31,7 +31,7 @@ class CrawlModule():
                 'footer' : L[2]
             })
 
-        return new_recent_post, post_list
+        return new_recent_post, reversed(post_list)
     
     @staticmethod
     def CrawlCSE(recent_post, board_info):
@@ -62,4 +62,4 @@ class CrawlModule():
                 'footer' : board_info['label']
             })
 
-        return new_recent_post, post_list
+        return new_recent_post, reversed(post_list)
