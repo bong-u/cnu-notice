@@ -11,6 +11,8 @@
 
   ![image](https://user-images.githubusercontent.com/68285620/210507996-fcc7b678-56be-4a8a-8906-51324b03b478.png)
 
+### DB   
+> [Google Spreadsheet](https://docs.google.com/spreadsheets/d/1WPN_LVn6LQGO-inCwvmG9kzZPedTyIauuT5I3UjUHKU/edit?usp=sharing)
 ### TECH
 <img src="https://img.shields.io/badge/Python-3671a1?style=flat-square&logo=python&logoColor=white"/></a>
 <img src="https://img.shields.io/badge/Gitub Actions-000000?style=flat-square&logo=github&logoColor=white"/></a>
