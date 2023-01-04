@@ -1,4 +1,4 @@
-name: cse_notice_crawler
+name: cnu_notice_crawler
 
 on:
   schedule:
