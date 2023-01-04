@@ -55,7 +55,7 @@ class MainModule(DBModule):
         # seriallize post_list
         message_list = self.serialize(post_list)
 
-        self.update(recent_post)
+        self.updateDB(recent_post)
 
         for message in message_list:
             self.send(message)
