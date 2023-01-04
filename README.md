@@ -1,13 +1,16 @@
-# cse-notice
+# CNU-NOTICE
 * Sending new notice using Slack API
-* Getting notice info from https://computer.cnu.ac.kr/
 
-* message example
+* Subscribed Notice board
+  1. 충남대학교 > 백마광장 > [학사정보](https://plus.cnu.ac.kr/_prog/_board/?code=sub07_0702&site_dvs_cd=kr&menu_dvs_cd=0702)
+  2. 충남대학교 컴퓨터융합학부 > 공지사항 > [학사공지](https://computer.cnu.ac.kr/computer/notice/bachelor.do)
+  3. 충남대학교 컴퓨터융합학부 > 공지사항 > [일반소식](https://computer.cnu.ac.kr/computer/notice/notice.do)
+  4. 충남대학교 컴퓨터융합학부 > 공지사항 > [사업단소식](https://computer.cnu.ac.kr/computer/notice/project.do)
 
-  ![image](https://user-images.githubusercontent.com/68285620/171328959-ce0a82ea-bdc8-4236-aa3c-427410871d21.png)
+* Message Example
 
-### BUILT WITH
+  ![image](https://user-images.githubusercontent.com/68285620/210507996-fcc7b678-56be-4a8a-8906-51324b03b478.png)
+
+### TECH
 <img src="https://img.shields.io/badge/Python-3671a1?style=flat-square&logo=python&logoColor=white"/></a>
-
-### USING WITH
 <img src="https://img.shields.io/badge/Gitub Actions-000000?style=flat-square&logo=github&logoColor=white"/></a>
