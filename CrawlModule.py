@@ -25,6 +25,7 @@ class CrawlModule():
                 break
 
             post_list.append({
+                'channel' : board_info['channel_id'],
                 'title' : L[1],
                 'link' : item.select_one('a')['href'].replace('.', board_info['url_base']),
                 'footer' : L[2]
@@ -55,6 +56,7 @@ class CrawlModule():
                 break
 
             post_list.append({
+                'channel' : board_info['channel_id'],
                 'title' : title,
                 'link' : board_info['url'] + href,
                 'footer' : board_info['label']

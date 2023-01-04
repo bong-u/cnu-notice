@@ -5,25 +5,30 @@ from DBModule import DBModule
 from CrawlModule import CrawlModule
 
 class MainModule(DBModule):
-    __SLACK_TOKEN = os.getenv('SLAC K_TOKEN')
-    __CHANNEL_ID = os.getenv('CHANNEL_ID')
+    __SLACK_TOKEN = os.getenv('SLACK_TOKEN')
+    __CNU_CHANNEL_ID = os.getenv('CNU_CHANNEL_ID')
+    __CSE_CHANNEL_ID = os.getenv('CSE_CHANNEL_ID')
     __CSE_URL_BASE = 'https://computer.cnu.ac.kr/computer/notice/'
     __CNU_URL_BASE = 'https://plus.cnu.ac.kr/_prog/_board'
 
     __BOARD_INFO_LIST = [
         {
+            'channel_id' : __CSE_CHANNEL_ID,
             'url' : __CSE_URL_BASE + 'bachelor.do',
             'label' : '학사공지'
         },
         {
+            'channel_id' : __CSE_CHANNEL_ID,
             'url' : __CSE_URL_BASE + 'notice.do',
             'label' : '일반공지'
         },
         {
+            'channel_id' : __CSE_CHANNEL_ID,
             'url' : __CSE_URL_BASE + 'project.do',
             'label' : '사업단소식'
         },
         {
+            'channel_id' : __CNU_CHANNEL_ID,
             'url_base' : __CNU_URL_BASE,
             'url' : __CNU_URL_BASE + '/?code=sub07_0702&site_dvs_cd=kr&menu_dvs_cd=0702'
         }
@@ -52,8 +57,8 @@ class MainModule(DBModule):
 
         # self.update(recent_post)
 
-        # for message in message_list:
-        #     self.send(message)
+        for message in message_list:
+            self.send(message)
 
     def serialize(self, post_list):
         message_list= []
@@ -62,7 +67,7 @@ class MainModule(DBModule):
             print (item)
             message_list.append(
                 {
-                    'channel': self.__CHANNEL_ID,
+                    'channel': item['channel'],
                     'attachments': [
                         {
                             'mrkdwn_in': ['text'],
