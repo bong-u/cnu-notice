@@ -1,4 +1,5 @@
 # CNU-NOTICE
+![example workflow](https://github.com/bong-u/cnu-notice/actions/workflows/python-app.yml/badge.svg)
 * Sending new notice using Slack API
 
 * Subscribed Notice board
