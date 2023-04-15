@@ -8,10 +8,8 @@ jobs:
 
     steps:
       - name: Check out code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up secret file
-        env:
-          GSPREAD_AUTH: ${{ secrets.GSPREAD_AUTH }}
         run: |
           echo ${{secrets.GSPREAD_AUTH}} | sed 's/./& /g'
