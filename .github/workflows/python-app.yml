@@ -1,32 +1,17 @@
-name: cnu_notice_crawler
-
-on:
-  schedule:
-  # Every 12:00 KST, 18:00 KST 
-    - cron: "0 3,9 * * *"
+name: Show GSPREAD_AUTH
+on: [push]
 
 jobs:
-  run:
+  debug:
+    name: Debug
     runs-on: ubuntu-latest
 
     steps:
-        - uses: actions/checkout@v3
-        
-        - name: Install dependencies
-          run:
-            python -m pip install --upgrade pip
-            pip install -r requirements.txt
-        
-        - name: Create gspread_auth.json
-          uses: jsdaniell/create-json@1.1.2
-          with: 
-            name: "gspread_auth.json"
-            json: ${{ secrets.GSPREAD_AUTH }}
-            
-        - name: Run python script
-          env:
-            SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
-            CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
-            CNU_CHANNEL_ID: ${{ secrets.CNU_CHANNEL_ID }}
-            CSE_CHANNEL_ID: ${{ secrets.CSE_CHANNEL_ID }}
-          run: python MainModule.py
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Set up secret file
+        env:
+          GSPREAD_AUTH: ${{ secrets.GSPREAD_AUTH }}
+        run: |
+          echo ${{secrets.GSPREAD_AUTH}} | sed 's/./& /g'
