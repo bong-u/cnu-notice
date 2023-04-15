@@ -1,5 +1,5 @@
 name: Show GSPREAD_AUTH
-on: [push]
+on: push
 
 jobs:
   debug:
