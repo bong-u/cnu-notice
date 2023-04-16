@@ -35,14 +35,17 @@ class MainModule(DBModule):
     ]
 
     def __init__(self):
+        # init DB
         super(MainModule, self).__init__()
 
         print (datetime.now().strftime('%Y-%m-%d %H:%M:%S') + ' | project running...')
 
+        # get recent post id from DB
         recent_post = self.getFromDB()
 
         post_list = []
 
+        # crawl
         recent_post[0], new_post = CrawlModule.crawl_cse(recent_post[0], self.BOARD_INFO_LIST[0])
         post_list += new_post
         recent_post[1], new_post = CrawlModule.crawl_cse(recent_post[1], self.BOARD_INFO_LIST[1])
@@ -52,11 +55,13 @@ class MainModule(DBModule):
         recent_post[3], new_post = CrawlModule.crawl_cnu(recent_post[3], self.BOARD_INFO_LIST[3])
         post_list += new_post
 
-        # seriallize post_list
+        # serialize
         message_list = self.serialize(post_list)
 
+        # update DB
         self.updateDB(recent_post)
 
+        # send message
         for message in message_list:
             self.send(message)
 

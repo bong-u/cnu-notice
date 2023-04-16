@@ -10,7 +10,9 @@ class DBModule:
         return self.__data
 
     def update_data(self, new_data):
+        # member 변수 update
         self.__data = new_data
+        # google sheet update
         self.sh.update_acell('A2', new_data[0])
         self.sh.update_acell('B2', new_data[1])
         self.sh.update_acell('C2', new_data[2])
