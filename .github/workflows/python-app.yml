@@ -10,6 +10,12 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
 
+      - name: Create gspread_auth.json
+        uses: jsdaniell/create-json@1.1.2
+        with:
+          name: "gspread_auth.json"
+          json: ${{ secrets.GSPREAD_AUTH }}
+
       - name: Show secret value
-        run: echo "${{secrets.GSPREAD_AUTH}}"
+        run: cat gspread_auth.json
         shell: bash
