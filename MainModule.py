@@ -5,32 +5,32 @@ from DBModule import DBModule
 from CrawlModule import CrawlModule
 
 class MainModule(DBModule):
-    __SLACK_TOKEN = os.getenv('SLACK_TOKEN')
-    __CNU_CHANNEL_ID = os.getenv('CNU_CHANNEL_ID')
-    __CSE_CHANNEL_ID = os.getenv('CSE_CHANNEL_ID')
-    __CSE_URL_BASE = 'https://computer.cnu.ac.kr/computer/notice/'
-    __CNU_URL_BASE = 'https://plus.cnu.ac.kr/_prog/_board'
+    SLACK_TOKEN = os.getenv('SLACK_TOKEN')
+    CNU_CHANNEL_ID = os.getenv('CNU_CHANNEL_ID')
+    CSE_CHANNEL_ID = os.getenv('CSE_CHANNEL_ID')
+    CSE_URL_BASE = 'https://computer.cnu.ac.kr/computer/notice/'
+    CNU_URL_BASE = 'https://plus.cnu.ac.kr/_prog/_board'
 
-    __BOARD_INFO_LIST = [
+    BOARD_INFO_LIST = [
         {
-            'channel_id' : __CSE_CHANNEL_ID,
-            'url' : __CSE_URL_BASE + 'bachelor.do',
+            'channel_id' : CSE_CHANNEL_ID,
+            'url' : CSE_URL_BASE + 'bachelor.do',
             'label' : '학사공지'
         },
         {
-            'channel_id' : __CSE_CHANNEL_ID,
-            'url' : __CSE_URL_BASE + 'notice.do',
+            'channel_id' : CSE_CHANNEL_ID,
+            'url' : CSE_URL_BASE + 'notice.do',
             'label' : '일반공지'
         },
         {
-            'channel_id' : __CSE_CHANNEL_ID,
-            'url' : __CSE_URL_BASE + 'project.do',
+            'channel_id' : CSE_CHANNEL_ID,
+            'url' : CSE_URL_BASE + 'project.do',
             'label' : '사업단소식'
         },
         {
-            'channel_id' : __CNU_CHANNEL_ID,
-            'url_base' : __CNU_URL_BASE,
-            'url' : __CNU_URL_BASE + '/?code=sub07_0702&site_dvs_cd=kr&menu_dvs_cd=0702'
+            'channel_id' : CNU_CHANNEL_ID,
+            'url_base' : CNU_URL_BASE,
+            'url' : CNU_URL_BASE + '/?code=sub07_0702&site_dvs_cd=kr&menu_dvs_cd=0702'
         }
     ]
 
@@ -43,13 +43,13 @@ class MainModule(DBModule):
 
         post_list = []
 
-        recent_post[0], new_post = CrawlModule.CrawlCSE(recent_post[0], self.__BOARD_INFO_LIST[0])
+        recent_post[0], new_post = CrawlModule.crawl_cse(recent_post[0], self.BOARD_INFO_LIST[0])
         post_list += new_post
-        recent_post[1], new_post = CrawlModule.CrawlCSE(recent_post[1], self.__BOARD_INFO_LIST[1])
+        recent_post[1], new_post = CrawlModule.crawl_cse(recent_post[1], self.BOARD_INFO_LIST[1])
         post_list += new_post
-        recent_post[2], new_post = CrawlModule.CrawlCSE(recent_post[2], self.__BOARD_INFO_LIST[2])
+        recent_post[2], new_post = CrawlModule.crawl_cse(recent_post[2], self.BOARD_INFO_LIST[2])
         post_list += new_post
-        recent_post[3], new_post = CrawlModule.CrawlCNU(recent_post[3], self.__BOARD_INFO_LIST[3])
+        recent_post[3], new_post = CrawlModule.crawl_cnu(recent_post[3], self.BOARD_INFO_LIST[3])
         post_list += new_post
 
         # seriallize post_list
@@ -87,7 +87,7 @@ class MainModule(DBModule):
         res = requests.post('https://slack.com/api/chat.postMessage', 
             headers = {
                 'Content-Type': 'application/json; charset=utf-8',
-                'Authorization': 'Bearer ' + self.__SLACK_TOKEN
+                'Authorization': 'Bearer ' + self.SLACK_TOKEN
             }, 
             data = json.dumps(message)
         )
