@@ -52,7 +52,7 @@ class CrawlModule():
 
             if index == 0:
                 new_recent_post = post_no
-            if post_no == recent_post:
+            if post_no >= recent_post:
                 break
 
             post_list.append({
