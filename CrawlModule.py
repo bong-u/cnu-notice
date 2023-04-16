@@ -17,22 +17,25 @@ class CrawlModule():
         soup = cls._get_soup(board_info['url'])
 
         for item in soup.select('table > tbody > tr'):
-            cells = []
-            for column in item.select('td'):
-                cells.append(column.text)
+            cells = item.findAll('td')
 
-            if cells[0] == '공지':
+            element = cells[1].find('a')
+            href = element['href']
+            post_id = href.split('no=')[1].split('&')[0]
+            label = item.select('td')[2].text
+
+            if cells[0].text == '공지':
                 continue
             if new_recent_post == 0:
-                new_recent_post = cells[0]
-            if cells[0] == recent_post:
+                new_recent_post = post_id
+            if post_id <= recent_post:
                 break
 
             posts.append({
                 'channel' : board_info['channel_id'],
-                'title' : cells[1],
-                'link' : item.select_one('a')['href'].replace('.', board_info['url_base']),
-                'footer' : cells[2]
+                'title' : element.text,
+                'link' : href.replace('.', board_info['url_base']),
+                'footer' : label
             })
 
         return new_recent_post, reversed(posts)
@@ -54,7 +57,7 @@ class CrawlModule():
 
             if index == 0:
                 new_recent_post = post_id
-            if post_id >= recent_post:
+            if post_id <= recent_post:
                 break
 
             posts.append({
