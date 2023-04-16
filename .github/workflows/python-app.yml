@@ -16,6 +16,10 @@ jobs:
           name: "gspread_auth.json"
           json: ${{ secrets.GSPREAD_AUTH }}
 
-      - name: Show secret value
-        run: cat gspread_auth.json
-        shell: bash
+      - name: Get values from the package.json
+          id: packageJson
+          uses: RadovanPelka/github-action-json@main
+          with:
+            path: "gspread_auth.json"
+
+        - run: echo "${{ steps.packageJson.outputs}}"
