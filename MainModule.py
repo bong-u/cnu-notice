@@ -41,7 +41,7 @@ class MainModule(DBModule):
         print (datetime.now().strftime('%Y-%m-%d %H:%M:%S') + ' | project running...')
 
         # get recent post id from DB
-        recent_post = self.getFromDB()
+        recent_post = self.get_data()
 
         post_list = []
 
