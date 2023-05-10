@@ -6,29 +6,27 @@ from CrawlModule import CrawlModule
 
 class MainModule(DBModule):
     SLACK_TOKEN = os.getenv('SLACK_TOKEN')
-    CNU_CHANNEL_ID = os.getenv('CNU_CHANNEL_ID')
-    CSE_CHANNEL_ID = os.getenv('CSE_CHANNEL_ID')
     CSE_URL_BASE = 'https://computer.cnu.ac.kr/computer/notice/'
     CNU_URL_BASE = 'https://plus.cnu.ac.kr/_prog/_board'
 
     BOARD_INFO_LIST = [
         {
-            'channel_id' : CSE_CHANNEL_ID,
+            'channel_id' : os.getenv('CHANNEL_BACHELOR'),
             'url' : CSE_URL_BASE + 'bachelor.do',
             'label' : '학사공지'
         },
         {
-            'channel_id' : CSE_CHANNEL_ID,
+            'channel_id' : os.getenv('CHANNEL_NOTICE'),
             'url' : CSE_URL_BASE + 'notice.do',
             'label' : '일반공지'
         },
         {
-            'channel_id' : CSE_CHANNEL_ID,
+            'channel_id' : os.getenv('CHANNEL_PROJECT'),
             'url' : CSE_URL_BASE + 'project.do',
             'label' : '사업단소식'
         },
         {
-            'channel_id' : CNU_CHANNEL_ID,
+            'channel_id' : os.getenv('CHANNEL_CNU'),
             'url_base' : CNU_URL_BASE,
             'url' : CNU_URL_BASE + '/?code=sub07_0702&site_dvs_cd=kr&menu_dvs_cd=0702'
         }
