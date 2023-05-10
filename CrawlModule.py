@@ -1,13 +1,21 @@
 from bs4 import BeautifulSoup
-import requests
+import requests, time
 
 class CrawlModule():
+    MAX_RETRIES = 3
 
     @classmethod
     def _get_soup(cls, url:str):
-        res = requests.get(url, headers={'User-Agent':'Mozilla/5.0'})
-        res.encoding = 'UTF-8'
-        return BeautifulSoup(res.text, 'html.parser')
+        for _ in range(cls.MAX_RETRIES):
+            try:
+                res = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'})
+                res.encoding = 'UTF-8'
+                return BeautifulSoup(res.text, 'html.parser')
+            except requests.exceptions.ConnectionError:
+                print("ConnectionError occurred. Retrying in 1 second...")
+                time.sleep(retry_delay)
+        
+        raise Exception("ConnectionError occurred too many times.")
 
     @classmethod
     def crawl_cnu(cls, recent_post:int, board_info:dict) -> tuple:
