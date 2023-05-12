@@ -1,9 +1,9 @@
 name: cnu_notice_crawler
 
-on:
-  schedule:
-    # Every 12:00 KST, 18:00 KST
-    - cron: "0 3,9 * * *"
+on: [push]
+  # schedule:
+  #   # Every 12:00 KST, 18:00 KST
+  #   - cron: "0 3,9 * * *"
 
 jobs:
   run:
@@ -25,7 +25,8 @@ jobs:
       - name: Run python script
         env:
           SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
-          CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
-          CNU_CHANNEL_ID: ${{ secrets.CNU_CHANNEL_ID }}
-          CSE_CHANNEL_ID: ${{ secrets.CSE_CHANNEL_ID }}
+          CHANNEL_BACHELOR: ${{ secrets.CHANNEL_BACHELOR }}
+          CHANNEL_NOTICE: ${{ secrets.CHANNEL_NOTICE }}
+          CHANNEL_PROJECT: ${{ secrets.CHANNEL_PROJECT }}
+          CHANNEL_CNU: ${{ secrets.CHANNEL_CNU }}
         run: python MainModule.py
