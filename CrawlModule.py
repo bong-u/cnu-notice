@@ -13,7 +13,7 @@ class CrawlModule():
                 return BeautifulSoup(res.text, 'html.parser')
             except requests.exceptions.ConnectionError:
                 print("ConnectionError occurred. Retrying in 1 second...")
-                time.sleep(retry_delay)
+                time.sleep(3)
         
         raise Exception("ConnectionError occurred too many times.")
 
