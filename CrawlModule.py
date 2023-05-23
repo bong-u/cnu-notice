@@ -27,26 +27,20 @@ class CrawlModule():
         for item in soup.select('table > tbody > tr'):
             cells = item.findAll('td')
 
-            # 공지는 제외
-            if cells[0].text == '공지':
-                continue
-
+            # href에서 no만 추출
             post_id = int(cells[1].find('a')['href'].split('no=')[1].split('&')[0])
 
             # 최근 게시물 id 갱신
-            if new_recent_post == 0:
-                new_recent_post = post_id
-            # 최근 게시물보다 오래된 게시물이면 break
-            if post_id <= recent_post:
-                break
+            new_recent_post = max(new_recent_post, post_id)
 
-            posts.append({
-                'channel' : board_info['channel_id'],
-                'title' : cells[1].find('a').text,
-                # link = url_base + href
-                'link' : cells[1].find('a')['href'].replace('.', board_info['url_base']),
-                'footer' : item.select('td')[2].text
-            })
+            # 새로운 게시물인 경우 posts에 추가                                                                                                                                                                                                            # 새로운 게시물인 경우 posts에 추가
+            if post_id > recent_post:
+                posts.append({
+                    'channel' : board_info['channel_id'],
+                    'title' : cells[1].find('a').text,
+                    'link' : cells[1].find('a')['href'].replace('.', board_info['url_base']),
+                    'footer' : item.select('td')[2].text
+                })
 
         # 최근 게시물을 가장 마지막으로 보내기 위해 reverse
         return new_recent_post, list(reversed(posts))
@@ -60,26 +54,23 @@ class CrawlModule():
 
         board = soup.select_one('div.content-wrap tbody')
     
-        for index, row in enumerate(board.select('tr:not(.b-top-box)')):
+        for row in board.select('tr'):
             element = row.find('a')
 
-            # 공지는 제외
+            # href에서 articleNo만 추출
             post_id = int(element['href'].split('articleNo=')[1].split('&')[0])
 
             # 최근 게시물 id 갱신
-            if index == 0:
-                new_recent_post = post_id
-            # 최근 게시물보다 오래된 게시물이면 break
-            if post_id <= recent_post:
-                break
+            new_recent_post = max(new_recent_post, post_id)
 
-            posts.append({
-                'channel' : board_info['channel_id'],
-                'title' : element.text.strip(),
-                # link = url_base + href
-                'link' : board_info['url'] + element['href'],
-                'footer' : board_info['label']
-            })
+            # 새로운 게시물인 경우 posts에 추가
+            if post_id > recent_post:
+                posts.append({
+                    'channel' : board_info['channel_id'],
+                    'title' : element.text.strip(),
+                    'link' : board_info['url'] + element['href'],
+                    'footer' : board_info['label']
+                })
 
         # 최근 게시물을 가장 마지막으로 보내기 위해 reverse
         return new_recent_post, list(reversed(posts))
