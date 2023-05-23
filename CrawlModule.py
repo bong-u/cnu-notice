@@ -62,14 +62,14 @@ class CrawlModule():
 
             # 최근 게시물 id 갱신
             new_recent_post = max(new_recent_post, post_id)
-
+            
             # 새로운 게시물인 경우 posts에 추가
             if post_id > recent_post:
                 posts.append({
                     'channel' : board_info['channel_id'],
                     'title' : element.text.strip(),
                     'link' : board_info['url'] + element['href'],
-                    'footer' : board_info['label']
+                    'footer' : row.select('td')[3].text,
                 })
 
         # 최근 게시물을 가장 마지막으로 보내기 위해 reverse
