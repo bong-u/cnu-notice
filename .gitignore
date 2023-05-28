@@ -3,4 +3,3 @@ exec.sh
 gspread_auth.json
 .venv/
 .vscode/
-env.env
