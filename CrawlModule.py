@@ -5,7 +5,7 @@ class CrawlModule():
     MAX_RETRIES = 3
 
     @classmethod
-    def _get_soup(cls, url:str):
+    def _get_soup(cls, url:str) -> BeautifulSoup:
         for _ in range(cls.MAX_RETRIES):
             try:
                 res = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'})

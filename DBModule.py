@@ -1,7 +1,7 @@
 import gspread, logging
 
 class DBModule:
-    def __init__(self):
+    def __init__(self) -> None:
         self.__CELLS = ['A2', 'B2', 'C2', 'D2']
         self.gc = gspread.service_account(filename='gspread_auth.json')
         self.sh = self.gc.open("cse_notice").sheet1
@@ -12,7 +12,7 @@ class DBModule:
     def get_data(self) -> list:
         return self.__data
 
-    def update_data(self, new_data):
+    def update_data(self, new_data: list) -> None:
         log = []
 
         for i in range(len(self.__CELLS)):

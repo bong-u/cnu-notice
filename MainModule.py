@@ -65,7 +65,7 @@ class MainModule(DBModule):
 
         # serialize
         message_list = self.serialize(post_list)
-        
+
         # send message
         for message in message_list:
             self.send(message)
@@ -74,7 +74,7 @@ class MainModule(DBModule):
         self.update_data(new_recent_post)
 
 
-    def serialize(self, post_list):
+    def serialize(self, post_list: list) -> list:
         message_list= []
         
         for item in post_list:
@@ -96,25 +96,24 @@ class MainModule(DBModule):
 
         return message_list
 
-    def send(self, message):
+    def send(self, message: dict) -> None:
         try:
-            res = requests.post('https://slack.com/api/chat.postMessag', 
+            res = requests.post('https://slack.com/api/chat.postMessage', 
                 headers = {
                     'Content-Type': 'application/json; charset=utf-8',
                     'Authorization': 'Bearer ' + self.SLACK_TOKEN
                 }, 
                 data = json.dumps(message)
             )
-            res = json.loads(res.text)
+            res_content  = json.loads(res.text)
 
-            if not res['ok'] or res.status_code != 200:
-                raise Exception(res)
+            if not res_content['ok'] or res.status_code != 200:
+                raise Exception(res_content)
 
             logging.info('Message sended : %s', message['channel']+'-'+message['id'])
             
         except Exception as e:
             logging.error('Message sending failed : %s', message['channel']+'-'+message['id'])
-            logging.error('Error message : '+ str(e))
             raise Exception(e)
 
 
