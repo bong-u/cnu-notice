@@ -36,10 +36,12 @@ class CrawlModule():
             # 새로운 게시물인 경우 posts에 추가                                                                                                                                                                                                            # 새로운 게시물인 경우 posts에 추가
             if post_id > recent_post:
                 posts.append({
+                    'board' : board_info['name'],
+                    'id' : str(post_id),
                     'channel' : board_info['channel_id'],
                     'title' : cells[1].find('a').text,
                     'link' : cells[1].find('a')['href'].replace('.', board_info['url_base']),
-                    'footer' : item.select('td')[2].text
+                    'footer' : item.select('td')[2].text,
                 })
 
         # 최근 게시물을 가장 마지막으로 보내기 위해 reverse
@@ -66,6 +68,8 @@ class CrawlModule():
             # 새로운 게시물인 경우 posts에 추가
             if post_id > recent_post:
                 posts.append({
+                    'board' : board_info['name'],
+                    'id' : str(post_id),
                     'channel' : board_info['channel_id'],
                     'title' : element.text.strip(),
                     'link' : board_info['url'] + element['href'],

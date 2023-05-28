@@ -19,6 +19,6 @@ class DBModule:
             # 기존 값과 다르면 update
             if self.__data[i] != new_data[i]:
                 log += ['%s : %d -> %d' % (self.__CELLS[i], self.__data[i], new_data[i])]
-                self.sh.update_acell(self.__CELLS[i], self.__data[i])
+                self.sh.update_acell(self.__CELLS[i], new_data[i])
 
         logging.info("DB updated : %s", log)
