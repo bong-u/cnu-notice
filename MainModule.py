@@ -1,5 +1,5 @@
 import requests
-import os, json
+import os, json, logging
 from datetime import datetime
 from DBModule import DBModule
 from CrawlModule import CrawlModule
@@ -36,28 +36,37 @@ class MainModule(DBModule):
         # init DB
         super(MainModule, self).__init__()
 
-        print (datetime.now().strftime('%Y-%m-%d %H:%M:%S') + ' | project running...')
+        # init logging
+        logging.basicConfig(
+            format="%(asctime)s %(levelname)-7s %(message)s",
+            level=logging.INFO,
+        )
+
+        logging.info("Application started")
 
         # get recent post id from DB
         recent_post = self.get_data()
+        new_recent_post = [0, 0, 0, 0]
 
         post_list = []
 
         # crawl
-        recent_post[0], new_post = CrawlModule.crawl_cse(recent_post[0], self.BOARD_INFO_LIST[0])
+        new_recent_post[0], new_post = CrawlModule.crawl_cse(recent_post[0], self.BOARD_INFO_LIST[0])
         post_list += new_post
-        recent_post[1], new_post = CrawlModule.crawl_cse(recent_post[1], self.BOARD_INFO_LIST[1])
+        new_recent_post[1], new_post = CrawlModule.crawl_cse(recent_post[1], self.BOARD_INFO_LIST[1])
         post_list += new_post
-        recent_post[2], new_post = CrawlModule.crawl_cse(recent_post[2], self.BOARD_INFO_LIST[2])
+        new_recent_post[2], new_post = CrawlModule.crawl_cse(recent_post[2], self.BOARD_INFO_LIST[2])
         post_list += new_post
-        recent_post[3], new_post = CrawlModule.crawl_cnu(recent_post[3], self.BOARD_INFO_LIST[3])
+        new_recent_post[3], new_post = CrawlModule.crawl_cnu(recent_post[3], self.BOARD_INFO_LIST[3])
         post_list += new_post
+
+        logging.info("post_list : [%s]", ', '.join([str(item['title']) for item in post_list]))
 
         # serialize
         message_list = self.serialize(post_list)
 
         # update DB
-        self.update_data(recent_post)
+        self.update_data(new_recent_post)
 
         # send message
         for message in message_list:
@@ -67,7 +76,6 @@ class MainModule(DBModule):
         message_list= []
         
         for item in post_list:
-            print (item)
             message_list.append(
                 {
                     'channel': item['channel'],
@@ -86,22 +94,27 @@ class MainModule(DBModule):
         return message_list
 
     def send(self, message):
+        try:
+            res = requests.post('https://slack.com/api/chat.postMessage', 
+                headers = {
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'Authorization': 'Bearer ' + self.SLACK_TOKEN
+                }, 
+                data = json.dumps(message)
+            )
+            status = json.loads(res.text)['ok']
 
-        res = requests.post('https://slack.com/api/chat.postMessage', 
-            headers = {
-                'Content-Type': 'application/json; charset=utf-8',
-                'Authorization': 'Bearer ' + self.SLACK_TOKEN
-            }, 
-            data = json.dumps(message)
-        )
+            if res.status_code != 200:
+                raise Exception('')
 
-        status = json.loads(res.text)['ok']
+            logging.info('Message sending success - %s', message['attachments'][0]['title'])
+            
+        except Exception as e:
+            logging.error('Message sending failed - %s', message['attachments'][0]['title'])
+            logging.error(e)
+            raise Exception('Message sending failed')
 
-        if status:
-            print ('Message sending success - ', message['attachments'][0]['title'])
-        else:
-            print ('Failed to send message.')
-            print (json.loads(res.text))
+
 
 
 if __name__ == '__main__':

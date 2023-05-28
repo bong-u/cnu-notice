@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-import requests, time
+import requests, time, logging
 
 class CrawlModule():
     MAX_RETRIES = 3
@@ -12,7 +12,7 @@ class CrawlModule():
                 res.encoding = 'UTF-8'
                 return BeautifulSoup(res.text, 'html.parser')
             except requests.exceptions.ConnectionError:
-                print("ConnectionError occurred. Retrying in 1 second...")
+                logging.ERROR("ConnectionError occurred. Retrying in 3 second...")
                 time.sleep(3)
         
         raise Exception("ConnectionError occurred too many times.")
