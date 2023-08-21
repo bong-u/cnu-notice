@@ -23,4 +23,7 @@ jobs:
           CHANNEL_NOTICE: ${{ secrets.CHANNEL_NOTICE }}
           CHANNEL_PROJECT: ${{ secrets.CHANNEL_PROJECT }}
           CHANNEL_CNU: ${{ secrets.CHANNEL_CNU }}
+          REDIS_HOST: ${{ secrets.REDIS_HOST }}
+          REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
+          REDIS_PORT: ${{ secrets.REDIS_PORT }}
         run: python MainModule.py
