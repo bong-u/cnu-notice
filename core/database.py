@@ -1,6 +1,6 @@
 import os, redis, logging
 
-class DBModule:
+class Database:
     def __init__(self) -> None:
         self.__r = redis.Redis(
             host=os.getenv('REDIS_HOST'),

@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import requests, time, logging
 
-class CrawlModule():
+class Scraper():
     MAX_RETRIES = 3
 
     @classmethod
