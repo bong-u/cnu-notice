@@ -1,5 +1,4 @@
 __pycache__/
 run-dev.sh
-gspread_auth.json
 .venv/
 .vscode/
