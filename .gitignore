@@ -1,4 +1,4 @@
 __pycache__/
-run-dev.sh
+run_dev.sh
 .venv/
 .vscode/
