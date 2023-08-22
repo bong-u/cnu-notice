@@ -23,5 +23,4 @@ class Database:
             if self.__data[index] != new_data[index]:
                 log += ['%s : %d -> %d' % (self.__KEYS[index], self.__data[index], new_data[index])]
                 self.__r.set(self.__KEYS[index], new_data[index])
-
-        logging.info("DB updated : %s", log)
+                logging.info('db update : %s : %d -> %d' % (self.__KEYS[index], self.__data[index], new_data[index]))
