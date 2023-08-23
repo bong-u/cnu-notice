@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import requests, time, logging
 
-class CrawlModule():
+class Scraper():
     MAX_RETRIES = 3
 
     @classmethod
@@ -12,10 +12,10 @@ class CrawlModule():
                 res.encoding = 'UTF-8'
                 return BeautifulSoup(res.text, 'html.parser')
             except requests.exceptions.ConnectionError:
-                logging.error("ConnectionError occurred. Retrying in 3 second...")
+                logging.error('ConnectionError occurred. Retrying in 3 second...')
                 time.sleep(3)
         
-        raise Exception("ConnectionError occurred too many times.")
+        raise Exception('ConnectionError occurred %d times. Aborting...' % cls.MAX_RETRIES)
 
     @classmethod
     def crawl_cnu(cls, recent_post:int, board_info:dict) -> tuple:

@@ -1,5 +1,4 @@
 __pycache__/
-run-dev.sh
-gspread_auth.json
+util/set_test_env.py
 .venv/
 .vscode/
