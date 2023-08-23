@@ -1,4 +1,5 @@
 import os
+from enum import Enum
 from core.scraper import Scraper
 
 SLACK_TOKEN = os.getenv('SLACK_TOKEN')
@@ -32,3 +33,12 @@ BOARD_INFO_LIST = {
         'scraper': Scraper.crawl_cnu,
     }
 }
+
+class BOARD_TYPE(Enum):
+    CSE_BACHELOR = 'cse_bachelor'
+    CSE_NOTICE = 'cse_notice'
+    CSE_PROJECT = 'cse_project'
+    CNU_NOTICE = 'cnu_notice'
+
+    def __str__(self):
+        return self.value

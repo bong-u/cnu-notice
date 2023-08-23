@@ -1,4 +1,5 @@
 import os, redis, logging
+from core.common import BOARD_TYPE
 
 class Database:
     def __init__(self) -> None:
@@ -7,20 +8,13 @@ class Database:
             port=int(os.getenv('REDIS_PORT')),
             password=os.getenv('REDIS_PASSWORD'),
             decode_responses=True)
-        
-        self.__KEYS = ['cse-bachelor', 'cse-notice', 'cse-project', 'cnu-notice']
 
-        self.__data = [int(self.__r.get(key)) for key in self.__KEYS]
+    def get_data(self, board_type: BOARD_TYPE) -> int:
+        data = int(self.__r.get(board_type.value))
+        logging.info('db get : %s : %d' % (board_type.value, data))        
+        return data
 
-    def get_data(self) -> list:
-        return self.__data
-
-    def update_data(self, new_data: list) -> None:
-        log = []
-
-        for index in range(len(self.__KEYS)):
-            # 기존 값과 다르면 update
-            if self.__data[index] != new_data[index]:
-                log += ['%s : %d -> %d' % (self.__KEYS[index], self.__data[index], new_data[index])]
-                self.__r.set(self.__KEYS[index], new_data[index])
-                logging.info('db update : %s : %d -> %d' % (self.__KEYS[index], self.__data[index], new_data[index]))
+    def update_data(self, board_type: BOARD_TYPE, data: int) -> int:
+        self.__r.set(board_type.value, data)
+        logging.info('db update : %s : %d' % (board_type.value, data))
+        return data 

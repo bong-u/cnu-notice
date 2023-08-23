@@ -12,7 +12,7 @@ import logging
 from database import Database
 from scraper import Scraper
 from slack_api import send
-from constant import BOARD_INFO_LIST
+from common import BOARD_INFO_LIST, BOARD_TYPE
 
 if __name__ == '__main__':
     if isProd:
@@ -24,25 +24,30 @@ if __name__ == '__main__':
     db = Database()
 
     # get recent post id from DB
-    recent_post = db.get_data()
-    # init recent post id
-    new_recent_post = [0, 0, 0, 0]
+    recent_post = {}
+    new_recent_post = {}
+    for board_type in BOARD_TYPE:
+        new_recent_post[board_type.value] = 0
+        recent_post[board_type.value] = db.get_data(board_type)
+    
     # init post list
     post_list = []
 
     # scrape
-    for index, board in enumerate(BOARD_INFO_LIST.values()):
-        new_recent_post[index], new_post_list = board['scraper'](recent_post[index], board)
+    for board_type in [element.value for element in BOARD_TYPE]:
+        board_info = BOARD_INFO_LIST[board_type]
+        new_recent_post[board_type], new_post_list = board_info['scraper'](recent_post[board_type], board_info)\
+        
+        if new_post_list:
+            logging.info('new post: %s', [post['board']+'-'+post['id'] for post in new_post_list])
         post_list += new_post_list
 
-    logging.info("result of scraping : %s", [post['board']+'-'+post['id'] for post in post_list])
 
     # send to slack
     for post in post_list:
         send(post)
 
     # update DB
-    db.update_data(new_recent_post)
-
-
-
+    for board_type in BOARD_TYPE:
+        if recent_post[board_type.value] != new_recent_post[board_type.value]:
+            db.update_data(board_type, new_recent_post[board_type.value])

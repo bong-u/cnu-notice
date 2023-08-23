@@ -3,7 +3,7 @@ sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from core.scraper import Scraper
 from util.set_test_env import set_test_env
 from util.test_wrapper import test_wrapper
-from core.constant import BOARD_INFO_LIST
+from core.common import BOARD_INFO_LIST
 
 import unittest
 from bs4 import BeautifulSoup
@@ -32,7 +32,7 @@ class ScraperTest(unittest.TestCase):
             post_id_list = []
             for post in posts:
                 post_id_list.append(post['id'])
-                assert type(post['id']) == str
+                assert post['id'].isnumeric()
             print ('post id list :', post_id_list)
 
 
