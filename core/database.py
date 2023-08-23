@@ -10,11 +10,16 @@ class Database:
             decode_responses=True)
 
     def get_data(self, board_type: BOARD_TYPE) -> int:
-        data = int(self.__r.get(board_type.value))
-        logging.info('db get : %s : %d' % (board_type.value, data))        
-        return data
+        data = self.__r.get(board_type.value)
+        if data == None:
+            raise KeyError('No key(%s) in db' % board_type.value)
+        if not data.isnumeric():
+            raise TypeError('Value of key(%s) is not numeric' % board_type.value)
+
+        logging.info('db get : %s : %s' % (board_type.value, data))        
+        return int(data)
 
     def update_data(self, board_type: BOARD_TYPE, data: int) -> int:
         self.__r.set(board_type.value, data)
-        logging.info('db update : %s : %d' % (board_type.value, data))
+        logging.info('db update : %s : %s' % (board_type.value, data))
         return data 
