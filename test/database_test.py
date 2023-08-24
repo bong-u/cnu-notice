@@ -1,7 +1,9 @@
 import os, sys
-sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
-from core.database import Database
-from core.common import BOARD_TYPE
+parent_dir = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
+sys.path.append(parent_dir)
+sys.path.append(os.path.join(parent_dir, 'core'))
+from database import Database
+from common import BOARD_TYPE
 from util.set_test_env import set_test_env
 from util.test_wrapper import test_wrapper
 
@@ -11,7 +13,6 @@ from unittest.mock import patch
 class DatabaseTest(unittest.TestCase):
 
     @test_wrapper
-    @unittest.skip(reason='skip')
     def test_get_data(self):
         # given # when
         db = Database()
@@ -48,7 +49,6 @@ class DatabaseTest(unittest.TestCase):
         mock_redis_get.assert_called_once_with(BOARD_TYPE.CNU_NOTICE.value)
     
     @test_wrapper
-    @unittest.skip(reason='skip')
     def test_update_data(self):
         # given
         db = Database()
