@@ -1,6 +1,6 @@
 import os
 from enum import Enum
-from core.scraper import Scraper
+from scraper import Scraper
 
 SLACK_TOKEN = os.getenv('SLACK_TOKEN')
 CSE_URL_BASE = 'https://computer.cnu.ac.kr/computer/notice/'

@@ -1,5 +1,5 @@
 import os, redis, logging
-from core.common import BOARD_TYPE
+from common import BOARD_TYPE
 
 class Database:
     def __init__(self) -> None:

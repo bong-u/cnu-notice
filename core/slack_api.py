@@ -1,4 +1,4 @@
-from core.common import SLACK_TOKEN
+from common import SLACK_TOKEN
 import requests, logging, json
 
 def send(post: dict) -> None:
