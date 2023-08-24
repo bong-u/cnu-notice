@@ -2,6 +2,7 @@ import os, sys
 parent_dir = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
 sys.path.append(parent_dir)
 sys.path.append(os.path.join(parent_dir, 'core'))
+import core
 from scraper import Scraper
 from common import BOARD_INFO_LIST
 from util.set_test_env import set_test_env
