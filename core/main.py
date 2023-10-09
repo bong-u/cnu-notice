@@ -2,7 +2,7 @@ import os, sys
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 isProd = True
 # 테스트 환경인 경우
-if len(sys.argv) > 1 and sys.argv[1] == '-test':
+if len(sys.argv) > 1 and (sys.argv[1] == '-t' or sys.argv[1] == '--test'):
     # 테스트용 환경변수 설정
     from util.set_test_env import set_test_env
     isProd = False
