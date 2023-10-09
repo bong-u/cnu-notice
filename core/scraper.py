@@ -38,7 +38,7 @@ class Scraper():
                 posts.append({
                     'board' : board_info['name'],
                     'id' : str(post_id),
-                    'channel' : board_info['channel_id'],
+                    'channel' : board_info['slack_channel'],
                     'title' : cells[1].find('a').text,
                     'link' : cells[1].find('a')['href'].replace('.', board_info['url_base']),
                     'footer' : item.select('td')[2].text,
@@ -70,7 +70,7 @@ class Scraper():
                 posts.append({
                     'board' : board_info['name'],
                     'id' : str(post_id),
-                    'channel' : board_info['channel_id'],
+                    'channel' : board_info['slack_channel'],
                     'title' : element.text.strip(),
                     'link' : board_info['url'] + element['href'],
                     'footer' : row.select('td')[3].text,

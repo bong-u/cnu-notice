@@ -16,7 +16,7 @@ class SlackApiTest(unittest.TestCase):
         # given
         test_post = {
             'title': 'test_title',
-            'channel': os.environ['CHANNEL_CNU'],
+            'channel': os.environ['SLACK_CHANNEL_CNU'],
             'id': '12345',
             'link': 'https://www.google.com',
             'footer': 'test_author',
