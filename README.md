@@ -15,9 +15,5 @@
 
   ![image](https://user-images.githubusercontent.com/68285620/210507996-fcc7b678-56be-4a8a-8906-51324b03b478.png)
 
-### TECH
-
-<img src="https://img.shields.io/badge/Python-3671a1?style=flat-square&logo=python&logoColor=white"/></a>
-<img src="https://img.shields.io/badge/Gitub Actions-000000?style=flat-square&logo=github&logoColor=white"/></a>
-<img src="https://img.shields.io/badge/Redis-DC382D?style=flat-square&logo=redis&logoColor=white"/></a>
-<img src="https://img.shields.io/badge/Slack-4A154B?style=flat-square&logo=slack&logoColor=white"/></a>
+### Software Architecture
+![image](https://github.com/user-attachments/assets/4ac43a48-2a89-436b-8a35-4cbe5fbcdbd6)
